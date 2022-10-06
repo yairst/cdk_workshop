@@ -24,10 +24,9 @@ class HitCounter(Construct):
             handler='hitcount.handler',
             code=_lambda.Code.from_asset('lambda'),
             environment={
-                'DOWMSTREAM_FUNCTION_NAME': downstream.function_name,
+                'DOWNSTREAM_FUNCTION_NAME': downstream.function_name,
                 'HITS_TABLE_NAME': table.table_name,
             }
         )
 
         table.grant_read_write_data(self._handler)
-        
