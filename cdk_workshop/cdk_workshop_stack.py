@@ -5,6 +5,9 @@ from aws_cdk import (
     aws_apigateway as apigw,
 )
 
+from .hitcounter import HitCounter
+
+
 class CdkWorkshopStack(Stack):
 
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
@@ -17,7 +20,12 @@ class CdkWorkshopStack(Stack):
             handler='hello.handler',
         )
 
+        hello_with_counter = HitCounter(
+            self, 'HelloHitCounter',
+            downstream=my_lambda
+        )
+
         apigw.LambdaRestApi(
             self, 'EndPoint',
-            handler=my_lambda,
+            handler=hello_with_counter._handler,
         )
