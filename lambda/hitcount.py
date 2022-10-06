@@ -10,7 +10,7 @@ _lambda = boto3.client('lambda')
 def handler(event, context):
     print('request: {}'.format(json.dumps(event)))
     table.update_item(
-        key={'path': event['path']},
+        Key={'path': event['path']},
         UpdateExpression='ADD hits :incr',
         ExpressionAttributeValues={':incr': 1}
     )
