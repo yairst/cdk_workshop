@@ -15,7 +15,9 @@ class WorkshopPipelineStack(Stack):
             "Pipeline",
             synth=pipelines.ShellStep(
                 "Synth",
-                input=pipelines.CodePipelineSource.connection('yairst/cdk_workshop', 'main', '***REMOVED***'),
+                input=pipelines.CodePipelineSource.connection('yairst/cdk_workshop', 'main',
+                connection_arn='***REMOVED***'
+                ),
                 commands=[
                     "npm install -g aws-cdk",  # Installs the cdk cli on Codebuild
                     "pip install -r requirements.txt",  # Instructs Codebuild to install required packages
