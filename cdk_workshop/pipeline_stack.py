@@ -18,7 +18,7 @@ class WorkshopPipelineStack(Stack):
                 input=pipelines.CodePipelineSource.connection(
                     'yairst/cdk_workshop',
                     "main",
-                    "***REMOVED***"
+                    "***REMOVED***",
                     ),
                 commands=[
                     "npm install -g aws-cdk",  # Installs the cdk cli on Codebuild
