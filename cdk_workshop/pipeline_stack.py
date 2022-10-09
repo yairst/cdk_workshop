@@ -4,11 +4,16 @@ from aws_cdk import (
     pipelines,
 )
 from cdk_workshop.pipeline_stage import WorkshopPipelineStage
+from configparser import ConfigParser
 
 class WorkshopPipelineStack(Stack):
 
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
+
+        # read config file to get the CodeStar connection ARN needed below
+        config = ConfigParser()
+        config.read('app_config.ini')
 
         # Pipeline code goes here
         pipeline = pipelines.CodePipeline(
@@ -17,7 +22,7 @@ class WorkshopPipelineStack(Stack):
             synth=pipelines.ShellStep(
                 "Synth",
                 input=pipelines.CodePipelineSource.connection('yairst/cdk_workshop', 'main',
-                connection_arn='***REMOVED***'
+                connection_arn=config['arns']['ConnectionArn']
                 ),
                 commands=[
                     "npm install -g aws-cdk",  # Installs the cdk cli on Codebuild
